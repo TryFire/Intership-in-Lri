@@ -1,0 +1,205 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[T1]{fontenc}
+
+%%algo%%
+%\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{epstopdf}
+% GRAPHICS AND IMAGES
+\usepackage{tikz}
+\usepackage{acronym}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{tabularx}
+\usepackage[algoruled, vlined, linesnumbered]{algorithm2e}% http://ctan.org/pkg/algorithms
+%\usepackage{algpseudocode}
+% INCLUDE YOUR PACKAGES HERE
+%\usepackage{amsfonts,amsmath,amsthm, amssymb}
+\usepackage{subfig}
+\usepackage[font=scriptsize]{caption}
+%\usepackage{xcolor}
+
+%
+%\usepackage[english]{babel}
+%%\usepackage[utf8]{inputenc}
+%\usepackage{fancyhdr}
+%\usepackage{graphicx}
+%\usepackage{lastpage}
+%\usepackage{epstopdf}
+%\usepackage{setspace}
+%\usepackage{geometry}
+%\usepackage{amsmath}
+%\usepackage{amsfonts}
+%\usepackage[]{algorithm2e}
+%%\usepackage{amsmath}
+%%\usepackage{amsthm}
+%\usepackage{hyperref}
+%\usepackage{array}
+%\usepackage{titling}
+%\usepackage{amssymb}
+%\usepackage{color}
+%\usepackage[dvipsnames]{xcolor}
+%\usepackage{accents}
+\usepackage{pgf}
+\usepackage{tikz}
+
+\usetikzlibrary{arrows,automata}
+\newcommand*{\dt}[1]{\accentset{\mbox{\large\bfseries .}}{#1}}
+
+\newcommand{\ind}{1{\hskip -2.5 pt} \mathrm{I}}
+\newcommand{\QoS}{\mathrm{QoS}}
+
+\newtheorem{definition}{Definition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{prop}{Proposition}
+\newtheorem{assumption}{Assumption}
+\newtheorem{theorem}{Theorem}
+\newtheorem{remark}{Remark}
+\newtheorem{corollary}{Corollary}
+
+\newenvironment{sistema}%
+{\left\lbrace\begin{array}{@{}l@{}}}%
+{\end{array}\right.}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\title{Manual of DQN}
+
+\date{\today}
+\author{Xinneng XU}
+
+\begin{document}
+\maketitle
+
+
+\section{Preparation}
+
+\textbf{Python Environment.} Before execute the programme, you should install the environment of python3, il doesn't work with python2.
+
+\textbf{Modules.} In this programme, it is necessary to install numpy, tensorflow, pandas, matplotlib. You can use \textit{pip} to install the modules.
+
+\section{Execution}
+\textbf{Files.} In the dossier \textit{Deep Q-Learning/src}, there are the files:
+\begin{figure}[h]
+    \center
+    \includegraphics[scale=1]{files.PNG}
+	\caption{files}
+	\label{files}
+\end{figure}
+
+\begin{itemize}
+\item \textit{data.py}: This file defines the data that will be used to make simulations.
+
+\item \textit{environment.py}: This file defines all variables global and functions necessary for assigning the variables. Before execution, you can modify the values of the variables for achieving your requirements, such as the variable \textit{T} is the number of iteration.
+
+\item \textit{dqn.py}: In this file there is a class \textit{DQN} which is in charge of the Q-network, it has several functions which can build the network, train the network etc.
+
+Functions used outside class \textit{DQN}:
+
+
+\begin{itemize}
+\item \textit{get\_Q\_for\_all\_actions(self, state)} : For a state, calculate the Q for each arm in class \textit{MDP} by the Q-network, then return the result.
+
+\item \textit{train(self,state,arm,target)}: For a state and an arm, and target, train the network.
+
+\item \textit{get\_target(self, r, next\_state)}: calculate the target by current network.
+\end{itemize}
+
+\item \textit{mdp.py}: In this file there is a class \textit{DMP} which is in charge of managing the \textit{state}, \textit{action}, \textit{transition} and several functions which can calculating new state, get optimal action etc.
+
+Functions used outside class \textit{MDP}:
+
+\begin{itemize}
+\item \textit{get\_next\_state(self, a, y\_a)} : For current state, with the input an arm and feedback of arm(1 or 0), calculate the next state $ns$  and the probability to transfer to $ns$, and return them.
+
+\item \textit{transition(self, next\_state)}: Transfer to $next\_state$
+
+\item \textit{get\_action(self, dqn)}: Base on current state, network and $\epsilon$, get action by $\epsilon-greddy$.
+
+\item \textit{get\_optimal\_interval(self, dqn)}: Base on current network and arms selected to test, get the interval in which the optimal arm will be.
+
+\item \textit{get\_estimated\_theta(self, state, a)}: Calculate the estimated theta of arm a $\theta_a$ by the state input.
+
+\item \textit{get\_estimated\_expected\_cost(self, state, a)}: Calculate the estimated cost of arm a by the state input.
+
+\end{itemize}
+
+
+\item \textit{extension.py}: This file defines the whole algorithm without batch and the entrance of programme executed without batch.
+
+\item \textit{extension-batch.py}: This file defines the whole algorithm with batch and the entrance of programme executed with batch.
+\end{itemize}
+
+\paragraph{For execution.}
+\begin{enumerate}
+\item Open terminal or other IDE, then go to the dossier \textit{Deep Q-Learning/src}. Here there are 5 python files Figure \ref{files}.
+
+\item To execute programme using algorithm normal(without batch), you can use the command \textit{python extension.py}.
+
+
+
+
+\item To execute programme using algorithm with batch, you can use the command \textit{python extension-batch.py}.
+
+\item After the programme finishes, the results necessary will be printed in terminal and they will be also saved in the variables in \textit{environment.py}:
+\begin{figure}[h]
+    \center
+    \includegraphics[scale=1]{results.PNG}
+	\caption{variables in \textit{environment.py}}
+	\label{results}
+\end{figure}
+
+For details, see \textit{environment.py}.
+
+\end{enumerate}
+
+\section{Modify the code}
+
+
+\newpage
+
+\paragraph{Pour  executer mon code}  il faut 
+---> installer jupyter notebook
+--> installer  les bibliothèques        tenserflow, numpy
+
+\paragraph{Voici la procédure pour exécuter le code}
+
+\begin{enumerate}
+\item Il faut tout d'abord  être  dans le répertoire  DQN.
+\item  iI faut lancer la commande \texttt{jupyter notebook}  (dans le répertoire  DQN).
+
+Ici, il y a une ouverture de fenêtre. Il y a tous les fichiers de codes. 
+
+Mettre une capture d'écran
+
+
+Ici donner la liste des fichiers
+\begin{enumerate}
+\item fichier ''DQN1.0.ipynb : ''  source de l' algorithme DQN  en considérant que l'apprentissage se fait ''sans batch''.
+\end{enumerate}
+
+\item  iI faut ouvrir le fichier : il faut cliquer sur le nom du fichier.
+\item  Pour executer le code, il faut aller dans le menu Kernel $-->$ Rstart $\&$ Run all. il faut cliquer pour lancer les code
+\begin{itemize}
+\item Remarque : à chaque  fin d'instructions ou partie de code (\emph{In [xx]}),  il y a un résultat intermédiaire  (\emph{Out [xx]})
+
+\end{itemize}
+
+
+ 
+
+\end{enumerate}
+
+\clearpage
+\bibliography{biblio}
+\bibliographystyle{ieeetr}
+
+\end{document}
