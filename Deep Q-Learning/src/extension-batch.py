@@ -223,7 +223,7 @@ if __name__ == '__main__':
 
     for k_sun in Ks:
         amrs = split(data.actions, k_sun)
-        results = dqn_extension(arms, env.epochs,env.T,env.converge_number)
+        results = dqn_extension_batch(arms, env.epochs,env.T,env.converge_number)
         df_result['t_converge_K_%d'%k_sun] = results[0]
         df_result['regret_converge_K_%d'%k_sun] = results[1]
         df_result['regret_K_%d'%k_sun] = results[2]
