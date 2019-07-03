@@ -218,9 +218,26 @@ if __name__ == '__main__':
     if not data.theta_true:
         data.c_a, data.gamma, data.theta_true = data.get_paras(data.K)
     
-    # execute algo
-    results = dqn_extension_batch(data.actions, env.epochs,env.T,env.converge_number,env.batchs)
+    df_result = pd.DataFrame()
+    Ks = [5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,22,24,26,28,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100]
 
+    for k_sun in Ks:
+        amrs = split(data.actions, k_sun)
+        results = dqn_extension(arms, env.epochs,env.T,env.converge_number)
+        df_result['t_converge_K_%d'%k_sun] = results[0]
+        df_result['regret_converge_K_%d'%k_sun] = results[1]
+        df_result['regret_K_%d'%k_sun] = results[2]
+        df_result['actions_find_K_%d'%k_sun] = results[3]
+        df_result['actions_opt_K_%d'%k_sun] = results[4]
+
+        df_result.to_csv('extension_batch_T_%d_epochs_%d.csv'%(env.T, env.epochs))
+
+        print(results)
+
+    # execute algo
+    #results = dqn_extension_batch(data.actions, env.epochs,env.T,env.converge_number,env.batchs)
+
+    '''
     # save the results
     env.list_T_when_converged = results[0] 
     env.list_cost_when_converged = results[1] 
@@ -234,3 +251,4 @@ if __name__ == '__main__':
     print('cost/Time                 :', env.list_cost_total)
     print('arm optimal found by DQN  :', env.list_action_optimal_found_by_DQN)
     print('arm optimal true          :', env.list_action_optimal)
+    '''
