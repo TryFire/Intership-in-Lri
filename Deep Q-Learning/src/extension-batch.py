@@ -55,7 +55,7 @@ output:
     list_action_opt:    true optimal resource
 
 '''
-def dqn_extension_batch(resource, Test_N=20, T=3000, converge_number=20, BATCH_NUMBER=10):
+def dqn_extension_batch(resources, Test_N=20, T=3000, converge_number=20, BATCH_NUMBER=10):
     list_T_converge = []
     list_cost_converge = []
     list_a_converge = []
@@ -68,7 +68,7 @@ def dqn_extension_batch(resource, Test_N=20, T=3000, converge_number=20, BATCH_N
         print('============== one epoch starts =================')
         
         # total arms 
-        arms = resource
+        arms = resources
         # the number of arms I want to select to test
         N_arms_wanted = data.number_arms_tobe_tested_one_time
         # the arms selected that will be tested
@@ -143,6 +143,8 @@ def dqn_extension_batch(resource, Test_N=20, T=3000, converge_number=20, BATCH_N
                     
                     # simulate resource
                     y_a, true_cost = data.simulate(action)
+                    # update cost iteration
+                    cost_itertion += true_cost
                     # calculate next state
                     next_state, proba_y_a = mdp.get_next_state(a_t, y_a)
                     # calculate expected estimate cost
@@ -198,8 +200,8 @@ def dqn_extension_batch(resource, Test_N=20, T=3000, converge_number=20, BATCH_N
         print('============== one epoch finished =================')
 
         # evaluate for this epoch
-        c_all = data.expected_costs()
-        arm_optimal_true = np.argmin(c_all)
+        c_all = data.expected_costs(resources)
+        arm_optimal_true = resources[np.argmin(c_all)]
         print('opt arm found by DQN                : ', a_converge)
         print('opt arm true                        : ', arm_optimal_true)
         print('regret  / T (when converged)        : ', sum(cost_converges)/sum(T_converges)-min(c_all), '<', max(c_all)-min(c_all))
@@ -211,7 +213,7 @@ def dqn_extension_batch(resource, Test_N=20, T=3000, converge_number=20, BATCH_N
         list_cost_converge.append(sum(cost_converges)/sum(T_converges) - min(c_all))
         list_cost.append(cost_total/T_total - min(c_all))
                          
-    return list_T_converge,list_cost_converge,list_cost,list_action_found,list_action_opt
+    return list_T_converge,list_cost_converge,list_cost,list_a_converge,list_action_opt
 
 if __name__ == '__main__':
     # if theta_true isn't defined, then use function get_paras to initialize the variables
