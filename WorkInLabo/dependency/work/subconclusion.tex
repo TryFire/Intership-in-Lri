@@ -1,0 +1,55 @@
+\subsection*{Sub Conclusion}
+
+\paragraph{For Artificial Data}
+\begin{itemize}
+	\item There are 3 types of functions for representing theta: 'quadra', 'sharp peak', 'triangle': Figure \ref{bandit-functions0.4}.
+		\begin{figure}[h]
+		\centering
+		\includegraphics[scale=0.5]{resources/0717/bandit-functions.png}
+		\caption{Bandit functions XOPT=0.4}
+		\label{bandit-functions0.4}
+		\end{figure}
+		
+	\item When algo samples arm $x$, we use Normal distribution to add noise in the reward return to algo: Norm(mean: $theta(x)$, standard deviation: $0.2 + theta(x)/1.2$) where $theta(x)$ is calculated by function in Figure \ref{bandit-functions0.4}.
+	
+	\item For LSE, LSE-backtrack, LSE-weighted, we should define number of sampling(NS). We have executed algorithms by setting NS from 8 to 20.
+	
+	\item To avoid contingency, we have use rounds from 10 to 80(ex. execute 80 times for each algorithm and calculate the mean value).
+	
+	\item For function 'Sharp Peak', $X_opt$ = 0.4, T = 15000, rounds = 80, number of sampling = 10, the curves of approximation and regret:Figure \ref{approx-sharp} \ref{regret-sharp}
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[scale=0.5]{resources/0717/approx-sharp.png}
+		\caption{Approximation XOPT = 0.4}
+		\label{approx-sharp}
+		\end{figure}
+		
+	\begin{figure}[h]
+		\centering
+		\includegraphics[scale=0.5]{resources/0717/regret-sharp.png}
+		\caption{Regret XOPT=0.4}
+		\label{regret-sharp}
+		\end{figure}
+	
+	\item Intervals. To test the performance of LSE-backtrack, it is necessary to set the interval initial $(x_i, x_j)$ where $x_i < x_j \wedge x_{opt} \notin [x_i, x_j]$ 
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[scale=0.5]{resources/0717/approx-sharp.png}
+		\caption{Approximation XOPT = 0.4}
+		\label{approx-sharp}
+		\end{figure}
+		
+	\begin{figure}[h]
+		\centering
+		\includegraphics[scale=0.5]{resources/0717/regret-sharp.png}
+		\caption{Regret XOPT=0.4}
+		\label{regret-sharp}
+		\end{figure}
+
+
+\end{itemize}
+
+
+

@@ -1,0 +1,29 @@
+\subsubsection*{Coder DQN With Batch}
+I created a new version of DQN which trains the network with batch, rather than train the network with each simulation.\\
+
+What it was:
+
+Loop:
+\begin{itemize}
+	
+	\item simulate one time and get tuple <$s_t, r_t, s_{t+1}$>
+	\item set $y_t = r_t+\beta \min_{a}Q_t(s_{t+1}, a;w_{t})$
+	\item train the network by minimizing the loss with the input = $ X = (F(s_t),G(a)), Y = y_t$
+\end{itemize}
+
+What I modified:
+
+Loop:
+\begin{itemize}
+	
+	\item there is memory $D$ and I simulate $n=(20)$ times, save the each tuple <$s_t, r_t, s_{t+1}$> in $D$
+	\item sample a batch(=10) from $D$ and calculate $y$ for each tuple in the batch
+	\item train the network by minimizing the loss of the batch
+\end{itemize}
+
+\textbf{Comparison.} With Time=2000(each time correspond to one simulation),K=5, and the cost of arm a is calculated by formula: $c(a) = 10 * (a + 1) + 55 * theta\_true[a]$ where theta\_true = [0.9, 0.64013, 0.50242, 0.37156, 0.26535].
+
+The regret/time of DQN without batch and UCB is 1.988 and 3.617 respectively. 
+
+Unfortunately, the DQN training with batch, it doesn't work. The problem is that when I trained the network, after several epochs, the output of network will be -inf. I have tried to use \textit{Keras} to build the network and use \textit{mean square error} as loss function, it doesn't work, the problem is when I trained the network, after several epochs, the output of network will be the same for any input.
+

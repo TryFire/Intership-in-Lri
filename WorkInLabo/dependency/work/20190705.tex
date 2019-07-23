@@ -1,0 +1,76 @@
+\subsection*{Execute Algorithm and Draw Graphs}
+
+
+I have executed algorithms: ['lse', 'lse-backtrack', 'lse-weighted', 'without gradient', 'sgd'] using 3 sampling functions (Figure \ref{unimodal-4-sample-functions}): ['quadra', 'triangle', 'shark'] with $X_{opt} = 0.5$, Time=10000.
+
+	When I executed sgd, there was a problem and I implemented a classic sgd by sampling n times $x-d$ and get the mean reward $r_{x-d}$ and sampling n times $x+d$ and get the mean reward $r_{x+d}$, then get $x_{new} = x + lr*\frac{r_{x+d} - r_{x-d}}{2*d}$.
+
+\begin{itemize}
+	\item Sampling Functions.
+	
+	X-axis represents the arms which are continuous from 0 to 1 and Y-axis 			represents the reward corresponding to each arm. The reward of $X_{opt}$ is 1.
+	
+	\begin{figure}[h]
+	\center
+	\includegraphics[scale=0.72]{resources/0705/unimodal-4-sample-functions.PNG}
+	\caption{4 Sampling Functions}
+	\label{unimodal-4-sample-functions}
+	\end{figure}
+
+	\item Regret.
+	
+	I have just executed the algorithms 1 time while X-axis represents time(each time sample 1 arm) and Y-axis represents cumulative regret.
+	
+	\begin{figure}[h]
+	\center
+	\includegraphics[scale=0.5]{resources/0705/unimodal-0705-regret-quadra.PNG}
+	\caption{4 Sampling Functions}
+	\label{unimodal-0705-regret-quadra}
+	\end{figure}
+	
+	\begin{figure}[h]
+	\center
+	\includegraphics[scale=0.5]{resources/0705/unimodal-0705-regret-triangle.PNG}
+	\caption{4 Sampling Functions}
+	\label{unimodal-0705-regret-triangle}
+	\end{figure}
+	\begin{figure}[h]
+	\center
+	\includegraphics[scale=0.5]{resources/0705/unimodal-0705-regret-shark.PNG}
+	\caption{4 Sampling Functions}
+	\label{unimodal-0705-regret-shark}
+	\end{figure}
+	
+	\item Approximation.
+	
+	I have just executed the algorithms 1 time while X-axis represents time(each time sample 1 arm) and Y-axis represents $abs(x-X_{opt}$ where x is the arm sampled.
+	
+	
+	\begin{figure}[h]
+	\center
+	\includegraphics[scale=0.5]{resources/0705/unimodal-0705-approx-quadra.PNG}
+	\caption{4 Sampling Functions}
+	\label{unimodal-0705-approx-quadra}
+	\end{figure}
+	
+	\begin{figure}[h]
+	\center
+	\includegraphics[scale=0.5]{resources/0705/unimodal-0705-approx-triangle.PNG}
+	\caption{4 Sampling Functions}
+	\label{unimodal-0705-approx-triangle}
+	\end{figure}
+	\begin{figure}[h]
+	\center
+	\includegraphics[scale=0.5]{resources/0705/unimodal-0705-approx-shark.PNG}
+	\caption{4 Sampling Functions}
+	\label{unimodal-0705-approx-shark}
+	\end{figure}	
+
+\end{itemize}
+
+\subsection*{Problems}
+We can see the graphs to get that 'lse-backtrack' is worse than 'lse' which is unreasonable.
+
+
+
+

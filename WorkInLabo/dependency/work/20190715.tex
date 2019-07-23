@@ -1,0 +1,38 @@
+\subsection*{Study on Semi-real Data}
+There are 5 types of semi-real data proposed by Stephan, but it is necessary to find what represents arm \textit{x} and what represents QoS.
+
+5 types:
+\begin{itemize}
+	\item \href{http://www.cs.huji.ac.il/labs/parallel/workload/swf.html}{Parallel Workloads Archive} 
+	
+	However, the data isn't suitable for us \ref{parseswf-theta}
+	\begin{figure}[h]
+		\center
+		\includegraphics[scale=0.5]{resources/0715/parseswf-theta.png}
+		\label{parseswf-theta}
+	\end{figure}
+		
+	\item \href{https://commondatastorage.googleapis.com/clusterdata-2011-2/task_events/}{Google Cluster Data} 
+	
+	This one is suitable for us Figure \ref{cost-cpubandit} 
+	\begin{figure}[h]
+		\center
+		\includegraphics[scale=0.5]{resources/0715/cost-cpubandit.PNG}
+		\caption{Cost Google Cluster Data}
+		\label{cost-cpubandit}
+	\end{figure}
+	
+	\item \href{http://home.ifi.uio.no/paalh/dataset/hsdpa-tcp-logs/}{ Riiser} : mobile http streaming scenarios
+	
+	This one is suitable for us Figure \ref{reward-riiser} 
+	\begin{figure}[h]
+		\center
+		\includegraphics[scale=0.5]{resources/0715/reward-riiser.png}
+		\caption{Cost Google Cluster Data}
+		\label{reward-riiser}
+	\end{figure}
+	
+	\item Call tests measurements
+	\item Makram
+
+\end{itemize}
